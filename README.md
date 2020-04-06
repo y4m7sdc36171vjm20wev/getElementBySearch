@@ -5,9 +5,11 @@ Search for ID values and Class values on a webpage or even an IFrame. Read the s
 # How to Use?
 
 example html:
+<code>
   <div>
     <button onclick="console.log('you did it!')" class="_434324234_btn"  id="_242424234243_submit">You found me!</button>
   </div>
+  </code>
   
  search("_submit", null, 0, "item").click(); //clicks the item -- OUTPUTS "you did it!"
  
