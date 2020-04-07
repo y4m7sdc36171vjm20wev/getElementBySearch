@@ -145,7 +145,7 @@ allResults = allResults.filter(function(e){ return e != "" });
 if(option != undefined){
     if(option == 0){
         for(let j = 0; j < allResults.length; j++){
-            let a = `${check}.getElementById(allResults[${j}])`;
+            let a = `${check}.querySelectorAll("#"+allResults[${j}])`;
             if(eval(a) == null){
     
                 allResults[j] = "";
@@ -157,17 +157,17 @@ if(option != undefined){
                         eval(a + '.click()');
                     }
                     if(func == "getText"){
-                        eval(`console.log(${a}.innerText)`)
+                        eval(`console.log(${a}[${j}].innerText)`)
                     }
                     if(func.search("setText") != -1){
-                        eval(`${a}.innerText = "${func.split("@")[1]}"`)
+                        eval(`${a}[${j}].innerText = "${func.split("@")[1]}"`)
                     }
                     if(func == "item"){
                         return eval(a);
                     }
                     if(func.search(`fun`) != -1){
                         function run(){
-                            let item = eval(a);
+                            let item = eval(`${a}[${j}]`);
                             eval(`${func.split("@")[1]}`);
                         }
                         run();
