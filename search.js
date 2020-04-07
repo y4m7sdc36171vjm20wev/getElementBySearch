@@ -91,7 +91,7 @@ const searchFrameForClass = (phrase, frame) =>{
     }
 }
 
-const search = (phrase, frame, option, func, pick) =>{
+const search = (phrase, frame, option, func) =>{
 
 let allResults = [];
 let combine = "";
@@ -136,8 +136,11 @@ if(frame != undefined && frame != null){
     check = `${frame}.document`;
 }
 
-let perform = "";
-let number = null;
+allResults = allResults.sort(function(a,b){
+    return a.length - b.length;
+});
+
+allResults = allResults.filter(function(e){ return e != "" });
 
 if(option != undefined){
     if(option == 0){
@@ -208,11 +211,7 @@ if(option != undefined){
 
 }
 
-allResults = allResults.sort(function(a,b){
-    return a.length - b.length;
-});
-
-return allResults.filter(function(e){ return e != "" });
+return allResults;
 
 }
 
