@@ -91,7 +91,7 @@ const searchFrameForClass = (phrase, frame) =>{
     }
 }
 
-const search = (phrase, frame, option, func) =>{
+const search = (phrase, frame, option, func, pick) =>{
 
 let allResults = [];
 let combine = "";
@@ -139,14 +139,14 @@ if(frame != undefined && frame != null){
 let perform = "";
 let number = null;
 
-
 if(option != undefined){
     if(option == 0){
         for(let j = 0; j < allResults.length; j++){
-
             let a = `${check}.getElementById(allResults[${j}])`;
             if(eval(a) == null){
+    
                 allResults[j] = "";
+            
             }else{
                 if(func != undefined){
 
@@ -176,25 +176,26 @@ if(option != undefined){
     if(option == 1){
         for(let j = 0; j < allResults.length; j++){
             let a = `${check}.getElementsByClassName(allResults[${j}])`;
-            if(eval(a+".length") == 0){
-                allResults[j] = "";
+            
+            if(eval(a+'.length') == 0){
+                    allResults[j] = "";
             }else{
                 if(func != undefined){
                     if(func == "click"){
                         eval(a + '[0].click()');
                     }
                     if(func == "getText"){
-                        eval(`console.log(${a}[0].innerText)`)
+                        eval(`console.log(${a}[${j}].innerText)`)
                     }
                     if(func.search("setText") != -1){
-                        eval(`${a}[0].innerText = "${func.split("@")[1]}"`)
+                        eval(`${a}[${j}].innerText = "${func.split("@")[1]}"`)
                     }
                     if(func == "item"){
                             return eval(a);
                     }
                     if(func.search(`fun`) != -1){
                         function run(){
-                            let item = eval(a);
+                            let item = eval(`${a}[${j}]`);
                             eval(`${func.split("@")[1]}`);
                             return true;
                         }
@@ -207,7 +208,7 @@ if(option != undefined){
 
 }
 
-allResults = allResults.sort(function(a,b){ 
+allResults = allResults.sort(function(a,b){
     return a.length - b.length;
 });
 
